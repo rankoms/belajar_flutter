@@ -12,23 +12,19 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('Randy Komara'),
         ),
-        body: Center(
-            child: Container(
-                color: Colors.lightBlue,
-                width: 150,
-                height: 150,
-                child: Text(
-                  'Yoo ayoo ayo persija ku ingin kamu harus menang',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: false,
-                  // textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ))),
+        body: Column(
+          children: [
+            Text('Test 1'),
+            Text('Test 2'),
+            Text('Test 3'),
+            Row(
+              children: [Text('Test 1'), Text('Test 2'), Text('Test 3')],
+              // mainAxisAlignment: MainAxisAlignment.center,
+            )
+          ],
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+        ),
       ),
     );
   }
