@@ -10,10 +10,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int number = 2;
-  void tekanTombol() {
+  String message = 'Ini adalah text';
+
+  void tombolDitekan() {
     setState(() {
-      number++;
+      message = "tombol sudah ditekan";
     });
   }
 
@@ -21,19 +22,21 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('Ini adalah statefull widget')),
+        appBar: AppBar(
+          title: Text('Anonymous'),
+        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                number.toString(),
-                style: TextStyle(fontSize: 10 + number.toDouble()),
-              ),
+              Text(message),
               ElevatedButton(
-                onPressed: tekanTombol,
-                child: Text('Tekan Tombol'),
-              )
+                  onPressed: () {
+                    setState(() {
+                      message = "tombol sudah ditekan";
+                    });
+                  },
+                  child: Text('Tekan Saya'))
             ],
           ),
         ),
