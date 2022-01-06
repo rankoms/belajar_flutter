@@ -10,35 +10,44 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String message = 'Ini adalah text';
-
-  void tombolDitekan() {
-    setState(() {
-      message = "tombol sudah ditekan";
-    });
-  }
-
+  int counter = 1;
+  List<Widget> widgets = [];
+  // _MyAppState() {
+  //   for (int i = 0; i < 15; i++) {
+  //     widgets.add(Text(
+  //       'Data Ke ' + i.toString(),
+  //       style: TextStyle(fontSize: 24),
+  //     ));
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Anonymous'),
+          title: Text('Hello List VIew'),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(message),
-              ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      message = "tombol sudah ditekan";
-                    });
-                  },
-                  child: Text('Tekan Saya'))
-            ],
-          ),
+        body: ListView(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        widgets.add(Text('Data ke -' + counter.toString()));
+                        counter++;
+                      });
+                    },
+                    child: Text('Tambah Data')),
+                ElevatedButton(onPressed: null, child: Text('Hapus Data'))
+              ],
+            ),
+            Column(
+              children: widgets,
+              crossAxisAlignment: CrossAxisAlignment.start,
+            )
+          ],
         ),
       ),
     );
