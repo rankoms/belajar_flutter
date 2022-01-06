@@ -10,20 +10,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Randy Komara'),
+          title: Text('Latihan Container dan Widget'),
         ),
-        body: Column(
-          children: [
-            Text('Test 1'),
-            Text('Test 2'),
-            Text('Test 3'),
-            Row(
-              children: [Text('Test 1'), Text('Test 2'), Text('Test 3')],
-              // mainAxisAlignment: MainAxisAlignment.center,
-            )
-          ],
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: Container(
+          color: Colors.red,
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+          margin: EdgeInsets.only(bottom: 20),
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Colors.amber, Colors.blue])),
+            margin: EdgeInsets.all(10),
+          ),
         ),
       ),
     );
