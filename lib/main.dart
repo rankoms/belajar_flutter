@@ -9,31 +9,34 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          leading: Icon(
-            Icons.adb,
-            color: Colors.white,
-          ),
-          title: Text(
-            'App Example',
-            style: TextStyle(color: Colors.white),
-          ),
-          actions: [
-            IconButton(onPressed: null, icon: Icon(Icons.settings)),
-            IconButton(onPressed: null, icon: Icon(Icons.exit_to_app))
-          ],
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('images/pattern.jpg'),
-                    fit: BoxFit.none,
-                    repeat: ImageRepeat.repeat),
-                gradient: LinearGradient(
-                    colors: [Color(0xff0096ff), Color(0xff6610f2)],
-                    begin: FractionalOffset.topLeft,
-                    end: FractionalOffset.bottomRight)),
+        backgroundColor: Colors.green,
+        body: Container(
+          margin: EdgeInsets.all(10),
+          child: ListView(
+            children: [
+              buildCard(Icons.account_box, 'Account Box'),
+              buildCard(Icons.adb, 'Account Box2')
+            ],
           ),
         ),
+      ),
+    );
+  }
+
+  Card buildCard(IconData iconData, String text) {
+    return Card(
+      elevation: 5,
+      child: Row(
+        children: [
+          Container(
+            child: Icon(
+              iconData,
+              color: Colors.yellow,
+            ),
+            margin: EdgeInsets.all(5.0),
+          ),
+          Text(text)
+        ],
       ),
     );
   }
