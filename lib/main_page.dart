@@ -7,26 +7,17 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Lataihan Hero animation'),
-      ),
-      body: GestureDetector(
-        onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return SecondPage();
-          }));
-        },
-        child: Hero(
-          tag: 'pp',
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(50),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(200),
+        child: AppBar(
+          flexibleSpace: Positioned(
+            bottom: 0,
+            right: 0,
             child: Container(
-              child: Image(
-                width: 100,
-                height: 100,
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                    'https://inikpop.com/wp-content/uploads/2018/12/jennie.jpg'),
+              margin: EdgeInsets.all(20),
+              child: Text(
+                'Persija',
+                style: TextStyle(fontSize: 20),
               ),
             ),
           ),
