@@ -9,32 +9,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TabBar myTabBar = TabBar(
+      indicatorColor: Colors.red,
+      indicator: BoxDecoration(
+          color: Colors.green,
+          border: Border(bottom: BorderSide(color: Colors.purple, width: 5))),
+      tabs: [
+        Tab(
+          icon: Icon(Icons.comment),
+          text: "Comment",
+        ),
+        Tab(
+          child: Image(
+            image: AssetImage('images/facebook.png'),
+          ),
+        ),
+      ],
+    );
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: DefaultTabController(
-          length: 4,
+          length: 2,
           child: Scaffold(
             appBar: AppBar(
               title: Text('Contoh Tab Bar'),
-              bottom: TabBar(
-                tabs: [
-                  Tab(
-                    icon: Icon(Icons.comment),
-                    text: "Comment",
-                  ),
-                  Tab(
-                    child: Image(
-                      image: AssetImage('images/facebook.png'),
-                    ),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.account_circle),
-                  ),
-                  Tab(
-                    text: 'Halo',
-                  )
-                ],
-              ),
+              bottom: PreferredSize(
+                  preferredSize: Size.fromHeight(myTabBar.preferredSize.height),
+                  child: Container(color: Colors.amber, child: myTabBar)),
             ),
             body: TabBarView(
               children: [
@@ -44,12 +45,6 @@ class MyApp extends StatelessWidget {
                 Center(
                   child: Text("Tab 1"),
                 ),
-                Center(
-                  child: Text("Tab 1"),
-                ),
-                Center(
-                  child: Text("Tab 1"),
-                )
               ],
             ),
           ),
