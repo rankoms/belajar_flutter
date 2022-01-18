@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/main_page.dart';
 import 'package:flutter_application_1/post_result_model.dart';
@@ -29,6 +31,9 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () {
                     PostResult.connectToAPI('Badu', 'Dokter').then((value) {
                       postResult = value;
+                      debugPrint('data: $value');
+
+                      // log('data: $value');
                       setState(() {});
                     });
                   },

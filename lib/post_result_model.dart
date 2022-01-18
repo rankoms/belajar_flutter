@@ -1,9 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class PostResult {
-  String? id, name, job, created;
+  String? id;
+  String? name;
+  String? job;
+  String? created;
 
   PostResult({this.id, this.name, this.job, this.created});
 
@@ -22,6 +26,7 @@ class PostResult {
         await http.post(Uri.parse(apiURL), body: {"name": name, "job": job});
 
     var jsonObject = json.decode(apiResult.body);
+    // debugPrint('movieTitle: $jsonObject');
     return PostResult.createPostResult(jsonObject);
   }
 }
