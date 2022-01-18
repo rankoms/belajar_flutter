@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/main_page.dart';
 import 'package:flutter_application_1/post_result_model.dart';
+import 'package:flutter_application_1/user_model.dart';
 
 void main() => runApp(const MyApp());
 
@@ -15,23 +16,25 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   PostResult? postResult;
+  User? user;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Request API'),
+          title: Text('Request APIafasd'),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text((postResult != null) ? 'data' : 'Tidak ada data'),
+              Text((user != null) ? 'data' : 'Tidak ada data'),
               ElevatedButton(
                   onPressed: () {
-                    PostResult.connectToAPI('Badu', 'Dokter').then((value) {
-                      postResult = value;
-                      debugPrint('data: $value');
+                    User.connectToAPI('3').then((value) {
+                      // print(postResult?.name);
+                      user = value;
+                      // print(postResult?.name);
 
                       // log('data: $value');
                       setState(() {});
