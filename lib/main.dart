@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/application_color.dart';
+import 'package:flutter_application_1/cart.dart';
+import 'package:flutter_application_1/money.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(const MyApp());
@@ -10,52 +12,94 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ChangeNotifierProvider<ApplicationColor>(
-        // create: (context) =>,
-        create: (content) => ApplicationColor(),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<Money>(
+            create: (context) => Money(),
+          ),
+          ChangeNotifierProvider<Cart>(
+            create: (context) => Cart(),
+          )
+        ],
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: Consumer<ApplicationColor>(
-              builder: (context, applicationColor, _) => Text(
-                'Hello World State ',
-                style: TextStyle(color: applicationColor.color),
+          floatingActionButton: Consumer<Cart>(
+            builder: (context, cart, _) => Consumer<Money>(
+              builder: (context, money, _) => FloatingActionButton(
+                onPressed: () {
+                  if (money.balance >= 500) {
+                    cart.quantity += 1;
+                    money.balance -= 500;
+                  }
+                },
+                child: Icon(Icons.add_shopping_cart),
+                backgroundColor: Colors.purple,
               ),
             ),
+          ),
+          appBar: AppBar(
+            title: Text('Multi Provider'),
           ),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Consumer<ApplicationColor>(
-                  builder: (context, applicationColor, _) => AnimatedContainer(
-                    duration: Duration(milliseconds: 500),
-                    width: 100,
-                    height: 100,
-                    margin: EdgeInsets.all(5),
-                    color: applicationColor.color,
-                  ),
-                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Text('Balance'),
                     Container(
-                      child: Text('AB'),
+                      height: 30,
+                      decoration: BoxDecoration(
+                          color: Colors.purple[100],
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: Colors.purple, width: 2)),
+                      width: 150,
                       margin: EdgeInsets.all(5),
-                    ),
-                    Consumer<ApplicationColor>(
-                      builder: (context, applicationColor, _) => Switch(
-                        value: applicationColor.isLightBlue,
-                        onChanged: (newValue) {
-                          applicationColor.isLightBlue = newValue;
-                        },
+                      padding: EdgeInsets.all(5),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Consumer<Money>(
+                          builder: (context, money, _) => Text(
+                            money.balance.toString(),
+                            style: TextStyle(
+                                color: Colors.purple,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
                       ),
-                    ),
-                    Container(
-                      child: Text('LB'),
-                      margin: EdgeInsets.all(5),
                     )
                   ],
+                ),
+                Container(
+                  height: 30,
+                  decoration: BoxDecoration(
+                      color: Colors.purple[100],
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.purple, width: 2)),
+                  margin: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(5),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Consumer<Cart>(
+                      builder: (context, cart, _) => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Apple(500) x " + cart.quantity.toString(),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            (500 * cart.quantity).toString(),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
