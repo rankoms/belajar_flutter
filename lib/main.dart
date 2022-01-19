@@ -1,47 +1,64 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/main_page.dart';
-import 'package:flutter_application_1/post_result_model.dart';
-import 'package:flutter_application_1/user_model.dart';
+import 'package:flutter_application_1/application_color.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(const MyApp());
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  PostResult? postResult;
-  User? user;
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Request APIafasd'),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text((user != null) ? 'data' : 'Tidak ada data'),
-              ElevatedButton(
-                  onPressed: () {
-                    User.connectToAPI('3').then((value) {
-                      // print(postResult?.name);
-                      user = value;
-                      // print(postResult?.name);
-
-                      // log('data: $value');
-                      setState(() {});
-                    });
-                  },
-                  child: Text('POST'))
-            ],
+      home: ChangeNotifierProvider<ApplicationColor>(
+        // create: (context) =>,
+        create: (content) => ApplicationColor(),
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            title: Consumer<ApplicationColor>(
+              builder: (context, applicationColor, _) => Text(
+                'Hello World State ',
+                style: TextStyle(color: applicationColor.color),
+              ),
+            ),
+          ),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Consumer<ApplicationColor>(
+                  builder: (context, applicationColor, _) => AnimatedContainer(
+                    duration: Duration(milliseconds: 500),
+                    width: 100,
+                    height: 100,
+                    margin: EdgeInsets.all(5),
+                    color: applicationColor.color,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text('AB'),
+                      margin: EdgeInsets.all(5),
+                    ),
+                    Consumer<ApplicationColor>(
+                      builder: (context, applicationColor, _) => Switch(
+                        value: applicationColor.isLightBlue,
+                        onChanged: (newValue) {
+                          applicationColor.isLightBlue = newValue;
+                        },
+                      ),
+                    ),
+                    Container(
+                      child: Text('LB'),
+                      margin: EdgeInsets.all(5),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
